@@ -1,5 +1,5 @@
-'use strict';
+"use strict";
 
-angular.module("todoApp").controller("ItemListCtrl", function($scope) {
-    
+angular.module("todoApp").controller("ItemListCtrl", function($scope, ItemFactory) {
+  $scope.items = ItemFactory.getTodoItems();
 });
