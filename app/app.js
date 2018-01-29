@@ -1,5 +1,23 @@
 "use strict";
 
+angular.module("todoApp", ["ngRoute"])
+.config( ($routeProvider) => {
+    // TODO: add controllers
+    $routeProvider
+    .when('/items/list', {
+        templateUrl: "partials/item-list.html",
+        controller: "ItemListCtrl"
+    })
+    .when('/items/new', {
+        templateUrl: "partials/item-new.html",
+        controller: "ItemNewCtrl"
+    })
+    .when('/items/deets/:id', {  //dynamic routing - we dont know how many items or what the id is
+        templateUrl: "partials/item-details.html",
+        controller: "ItemDetailCtrl"
+    })
+    .otherwise("/items/list");
+});
 // $scope.items = [
 //   {
 //     id: 0,
