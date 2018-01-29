@@ -12,13 +12,14 @@
       </div>
     </div>
     <!-- TODO: Repeat over our todo list items and setup filtering by search term. Easy peasy -->
-    <div>
+    <div ng-repeat="item in items">
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="col-xs-1"><input type="checkbox" name=""/></div>
-          <div class="col-xs-7"></div>
-          <div class="col-xs-2"></div>
-          <div class="col-xs-1"></div>
+          <div class="col-xs-7"><a ng-href="#!/items/deets/{{item.id}}">{{item.task}}</a></div>
+          <!-- what ng-href does is says "we're using angular here, and wait 'til angular has done its thing before it assigns its href'" -->
+          <div class="col-xs-2">{{item.dueDate}}</div>
+          <div class="col-xs-1">{{item.assignedTo}}</div>
           <div class="col-xs-1"><button class="btn btn-danger">X</button></div>
         </div>
       </div>
