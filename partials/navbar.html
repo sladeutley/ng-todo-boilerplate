@@ -9,6 +9,18 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="#">Todo App</a>
+        <div class="row">
+            <!-- below, the isActive is hiding the searchbar when you click on add item. check out navCtrl -->
+            <div class="col-xs-6 col-xs-offset-3" ng-show="isActive('/items/list')">
+                <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </span>
+                <!-- TODO: Bind the input to our todo list -->
+                <input type="text" class="form-control" ng-model="searchTerm.searchTerm" placeholder="Search for...">
+                </div>
+            </div>
+            </div>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
