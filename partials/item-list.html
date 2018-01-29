@@ -1,18 +1,7 @@
 <div class="col-xs-12">
     <h1>Todo List</h1>
-    <div class="row">
-      <div class="col-xs-6 col-xs-offset-3">
-        <div class="input-group">
-          <span class="input-group-btn">
-            <button class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i></button>
-          </span>
-          <!-- TODO: Bind the input to our todo list -->
-          <input type="text" class="form-control" placeholder="Search for...">
-        </div>
-      </div>
-    </div>
-    <!-- TODO: Repeat over our todo list items and setup filtering by search term. Easy peasy -->
-    <div ng-repeat="item in items">
+    <!-- this below, says filter on the entire everything. could do filter: {task: searchTerm.searchTerm} -->
+    <div ng-repeat="item in items | filter: searchTerm.searchTerm">
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="col-xs-1"><input type="checkbox" name=""/></div>

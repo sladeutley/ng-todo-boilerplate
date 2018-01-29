@@ -3,28 +3,28 @@
     <div class="form-group">
       <label>Task Description</label>
       <!-- TODO: Hook up this form to our JS for submitting -->
-      <input type="text" class="form-control" placeholder="Some important task" />
+      <input type="text" class="form-control" ng-model="newTask.task" placeholder="Some important task" />
     </div>
     <div class="form-group">
       <label>Due Date</label>
-      <input type="text" class="form-control" placeholder="12/12/17" />
+      <input type="text" class="form-control" ng-model="newTask.dueDate" placeholder="12/12/17" />
     </div>
     <div class="form-group">
       <label>Assigned To</label>
-      <input type="text" class="form-control" placeholder="cohort 20" />
+      <input type="text" class="form-control" ng-model="newTask.assignedTo" placeholder="cohort 20" />
     </div>
     <div class="form-group">
       <label>Location</label>
-      <input type="text" class="form-control" placeholder="attic" />
+      <input type="text" class="form-control" ng-model="newTask.location" placeholder="attic" />
     </div>
     <div class="form-group">
       <label>Urgency</label>
-      <input type="text" class="form-control" placeholder="low" />
+      <input type="text" class="form-control" ng-model="newTask.urgency" placeholder="low" />
     </div>
     <div class="form-group">
       <label>Dependencies</label>
-      <input type="text" class="form-control" placeholder="brush chipper, monkey chow, the one ring" />
+      <input type="text" class="form-control" ng-model="newTask.dependencies" placeholder="brush chipper, monkey chow, the one ring" />
     </div>
-    <!-- TODO: bind this button to a function -->
-    <button class="btn btn-default">Submit</button>
+    <!-- bind this button to a function. thats the ng-click="addNewItem()" -->
+    <button class="btn btn-default" ng-click="addNewItem()">Submit</button>
   </div>

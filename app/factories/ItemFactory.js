@@ -40,6 +40,11 @@ let items = [
   function getTodoItems() {
       return items;
   }
+  
+  function addNewItem(todoItem) {
+    todoItem.id = items.length;
+    items.push(todoItem);
+  }
 
-  return { getTodoItems };
+  return { getTodoItems, addNewItem };
 });
