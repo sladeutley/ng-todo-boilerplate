@@ -1,9 +1,14 @@
 "use strict";
 
 angular.module("todoApp", ["ngRoute"])
+.constant("FBUrl", "https://ng-to-boilerplate.firebaseio.com/") //a method thats a 'provider' (objects of data). whatever we name constant, it will be available in other places in our app
 .config( ($routeProvider) => {
     // TODO: add controllers
     $routeProvider
+    .when('/login', {
+        templateUrl: "partials/user-form.html",
+        controller: "LoginCtrl"
+    })
     .when('/items/list', {
         templateUrl: "partials/item-list.html",
         controller: "ItemListCtrl"
@@ -16,7 +21,19 @@ angular.module("todoApp", ["ngRoute"])
         templateUrl: "partials/item-details.html",
         controller: "ItemDetailCtrl"
     })
+    .when('/items/deets/:id/edit', {
+        templateUrl: "partials/item-new.html",
+        controller: "ItemEditCtrl"
+    })
     .otherwise("/items/list");
+})
+.run(FBCreds => {
+    let creds = FBCreds;
+    let authConfig = {
+        apikey: creds.key,
+        authDomain: creds.authDomain
+    };
+    firebase.initializeApp(authConfig);
 });
 // $scope.items = [
 //   {
