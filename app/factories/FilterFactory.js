@@ -6,3 +6,6 @@ angular.module("todoApp").factory("FilterFactory", function() {
         searchTerm: ""
     };
 });
+
+// because its an object, its a reference, so when one changes the other one changes
+// this is so controllers don't interfere???
