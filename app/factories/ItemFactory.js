@@ -1,3 +1,4 @@
+// commented out code is before firebase
 // "use strict";
 
 // angular.module("todoApp").factory("ItemFactory", ($q, FBUrl, $http) => {
@@ -34,70 +35,6 @@
 //   //   }
 //   // ];
 
-//   // function getTodoItems() { //THIS IS WHAT WE WERE USING BEFORE FIREBASE
-//   //   // return items;
-//   // }
-
-//   function getTodoItems() {
-//     return $q((resolve, reject) => {
-//       $http
-//         .get(`${FBUrl}/items.json`)
-//         //{itemsData} (below) is syntax for destructuring! It's cool. New to ES6. Get used to it. we will use a lot in nodd
-//         //destructuring is a shortcut for assigning variables out of objects
-//         // let obj = { name: "Fred"};
-//         // const { name } = obj;
-//         // console.log(name) and you'll get "Fred", usually you'd have to do console.log(obj.name)
-//         .then (( {itemsData} ) => {
-//           // could do {itemsData: { stuff }} to keep going further into the object
-//           // and the {itemsData} is the same as let taskData = itemsData.data
-//           console.log("tasks", itemsData);
-//           let taskArr = Object.keys(itemsData).map(taskKey => {
-//             console.log("taskKey", taskKey);
-//             itemsData[taskKey].id = taskKey;
-//             return itemsData[taskKey];
-//           });
-//           console.log('taskArr',taskArr);
-//           resolve(taskArr);
-//         })
-//         // the above works the same as this, but withough having to set an explicit var for tasks.data
-//         .catch(error => {
-//           reject(error);
-//         });
-//     });
-//   }
-
-//   function addNewItem(todoItem) {
-//     // todoItem.id = items.length;
-//     // items.push(todoItem);
-//     return $q((resolve, reject) => {
-//       $http
-//         .post(`${FBUrl}/items.json`,
-//         JSON.stringify(todoItem)
-//         )
-//         .then( (data) => {
-//           resolve(data);
-//         console.log("New Item Posted", data.data.name);
-//         })
-//         .catch( (error) => {
-//           reject(error);
-//         });
-//     });
-//   }
-
-// function updateItem(todoItem, itemId) {
-//   return $q((resolve, reject) => {
-//     $http
-//       .put(`${FBUrl}/items/${itemId}.json`),
-//       JSON.stringify(todoItem)
-//   })
-// }
-
-// //here we are building a bunch of objects by listing variables
-// //we are building an object and a value
-// //getTodoItems, for instance, stands for a key and a value
-//   return { getTodoItems, addNewItem, updateItem };
-// });
-
 "use strict";
 
 angular.module("todoApp").factory("ItemFactory", (FBUrl, $http, $q) => {
@@ -105,10 +42,16 @@ angular.module("todoApp").factory("ItemFactory", (FBUrl, $http, $q) => {
   function getTodoItems() {
     return $q((resolve, reject) => {
       $http
-        .get(`${FBUrl}/items.json`)
+        .get(`${FBUrl}/items.json?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
         // {data} is syntax for destructuring! It's cool. New to ES6. Get used to it. We will use a lot in Node
+        //destructuring is a shortcut for assigning variables out of objects
+        // let obj = { name: "Fred"};
+        // const { name } = obj;
+        // console.log(name) and you'll get "Fred", usually you'd have to do console.log(obj.name)
         .then(({ data }) => {
           console.log("tasks", data);
+        // could do {data: { stuff }} to keep going further into the object
+        // and the {data} is the same as let taskData = itemsData.data
           let taskArr = Object.keys(data).map(taskKey => {
             console.log("taskKey", taskKey);
             data[taskKey].id = taskKey;
@@ -194,4 +137,7 @@ angular.module("todoApp").factory("ItemFactory", (FBUrl, $http, $q) => {
   }
 
   return { getTodoItems, getTodoItem, addNewItem, updateItem, deleteItem };
+//here we are building a bunch of objects by listing variables
+//we are building an object and a value
+//getTodoItems, for instance, stands for a key and a value
 });

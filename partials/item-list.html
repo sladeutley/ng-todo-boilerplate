@@ -1,5 +1,6 @@
 <div class="col-xs-12">
     <h1>Todo List</h1>
+    <h2>{{message}}</h2>
     <!-- this below, says filter on the entire everything. could do filter: {task: searchTerm.searchTerm} -->
     <div ng-repeat="item in items | filter: {task: searchTerm.searchTerm}">
       <!-- did "item in items" because in ItemListCtrl.js define items after $scope ($scope.items) -->
@@ -12,6 +13,7 @@
           <!-- what ng-href does is says "we're using angular here, and wait 'til angular has done its thing before it assigns its href'" -->
           <div ng-if="item.dueDate" class="col-xs-2">{{item.dueDate}}</div>
           <div ng-if="!item.dueDate"class="col-xs-1">{{item.assignedTo}}</div>
+          <div class="col-xs-1">{{item.assignedTo}}</div>
           <div class="col-xs-1">
             <button class="btn btn-danger" ng-click="deleteTodoItem(item.id)">X</button>
           </div>

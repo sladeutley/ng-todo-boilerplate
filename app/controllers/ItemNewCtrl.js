@@ -10,7 +10,7 @@ angular
       dueDate: "",
       assignedTo: "",
       location: "",
-      urgency: "",
+      urgency: "low",
       dependencies: ""
     };
     //!!!!!!ng-option helps with dropdowns - for like urgency low or ungency high. This will help with capstone!!!
@@ -19,20 +19,10 @@ angular
     //We do that by putting an ng-model in each of the form
     $scope.saveItem = () => {
       console.log("New Item to add", $scope.todoItem);
+      $scope.todoItem.uid = firebase.auth().currentUser.uid;
       ItemFactory.addNewItem($scope.todoItem)
       .then(data => {
         $location.url("/items/list");
       });
     };
-    // ItemFactory.addNewItem(todoItem)
-    // .then((todoItem) => {
-    //     $scope.newTask = todoItem.data;
-    //     console.log('$scope.newTask',$scope.newTask);
-    //                  for (let item in todoItem) {
-    //                      let keys = Object.keys(customers[item])
-    //                      console.log(keys);
-    //                      keys.forEach( (key) => {
-    //                          customers[status][key].id = key;
-    //                           });
-    //              })
   });

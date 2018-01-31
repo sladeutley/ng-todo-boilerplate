@@ -1,9 +1,23 @@
 "use strict";
 
+// need isAuth so that a user can't just add todos or go to other places on the website and mess around without being logged in
+let isAuth = (AuthFactory) =>
+  new Promise((resolve, reject) => {
+    AuthFactory.isAuthenticated().then(userBool => {
+      console.log("user???", userBool);
+      if (userBool) {
+        console.log("Authenticated user. Go ahead");
+        resolve();
+      } else {
+        console.log("Not Authenticated user. Go away");
+        reject();
+      }
+    });
+  });
+
 angular.module("todoApp", ["ngRoute"])
 .constant("FBUrl", "https://ng-to-boilerplate.firebaseio.com/") //a method thats a 'provider' (objects of data). whatever we name constant, it will be available in other places in our app
 .config( ($routeProvider) => {
-    // TODO: add controllers
     $routeProvider
     .when('/login', {
         templateUrl: "partials/user-form.html",
@@ -11,26 +25,31 @@ angular.module("todoApp", ["ngRoute"])
     })
     .when('/items/list', {
         templateUrl: "partials/item-list.html",
-        controller: "ItemListCtrl"
+        controller: "ItemListCtrl",
+        resolve: {isAuth}
+        //what resolve does passes the data you put here, inject it as a dependency of the controller its associated with, and whatever data it is has to be completed/ resolved or the route will never load
     })
     .when('/items/new', {
         templateUrl: "partials/item-new.html",
-        controller: "ItemNewCtrl"
+        controller: "ItemNewCtrl",
+        resolve: {isAuth}
     })
     .when('/items/deets/:id', {  //dynamic routing - we dont know how many items or what the id is
         templateUrl: "partials/item-details.html",
-        controller: "ItemDetailCtrl"
+        controller: "ItemDetailCtrl",
+        resolve: {isAuth}
     })
     .when('/items/deets/:id/edit', {
         templateUrl: "partials/item-new.html",
-        controller: "ItemEditCtrl"
+        controller: "ItemEditCtrl",
+        resolve: {isAuth}
     })
-    .otherwise("/items/list");
+    .otherwise("/login");
 })
 .run(FBCreds => {
     let creds = FBCreds;
     let authConfig = {
-        apikey: creds.key,
+        apiKey: creds.key,
         authDomain: creds.authDomain
     };
     firebase.initializeApp(authConfig);
